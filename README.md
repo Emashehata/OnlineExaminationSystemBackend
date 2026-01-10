@@ -43,7 +43,7 @@ The database is the source of truth: business logic is implemented mainly throug
 
 ### Entity Relationship Diagram (ERD)
 
-![Database Schema]/onlineExaminationSystem (1).png)
+![Database Schema](./onlineExaminationSystem%20(1).png)
 
 *Database schema diagram showing all tables and relationships*
 
