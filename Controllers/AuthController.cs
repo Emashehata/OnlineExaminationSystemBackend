@@ -31,8 +31,8 @@ namespace OnlineExaminationSystem.Controllers
                 "sp_LoginWithProfile",
                 new
                 {
-                    Email = request.Email,
-                    PasswordHash = request.PasswordHash
+                    request.Email,
+                    request.PasswordHash
                 },
                 commandType: CommandType.StoredProcedure
             );
@@ -66,11 +66,11 @@ namespace OnlineExaminationSystem.Controllers
                     "sp_AddStudent",
                     new
                     {
-                        FullName = request.FullName,
-                        Email = request.Email,
-                        PasswordHash = request.PasswordHash,
-                        BranchId = request.BranchId,
-                        TrackId = request.TrackId,
+                        request.FullName,
+                        request.Email,
+                        request.PasswordHash,
+                        request.BranchId,
+                        request.TrackId,
                         CreatedByAdminId = (int?)null // Self register
                     },
                     commandType: CommandType.StoredProcedure
@@ -79,7 +79,7 @@ namespace OnlineExaminationSystem.Controllers
                 return Ok(new
                 {
                     message = "Student registered successfully. Please login.",
-                    studentId = studentId
+                    studentId
                 });
             }
             catch (SqlException ex)
