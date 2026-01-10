@@ -43,10 +43,9 @@ The database is the source of truth: business logic is implemented mainly throug
 
 ### Entity Relationship Diagram (ERD)
 
-![Database Schema]((/OnlineExaminationSystem(1))
+![Database Schema]/onlineExaminationSystem (1).png)
 
-> 📌 Place the ERD image inside the project at:  
-> `(/OnlineExaminationSystem(1)`
+*Database schema diagram showing all tables and relationships*
 
 ---
 
@@ -54,10 +53,42 @@ The database is the source of truth: business logic is implemented mainly throug
 
 - SQL Server installed and running
 - .NET SDK installed
-- Visual Studio 
+- Visual Studio (recommended)
 
 ---
 
- }
+## Database Setup
+
+1. Create a database named `OnlineExaminationSystem` in SQL Server
+2. Run the SQL scripts to create tables, relationships, and stored procedures
+3. Execute seed data scripts for initial setup (optional)
+
+Key stored procedures to verify:
+- `sp_LoginWithProfile` - Authentication
+- `sp_AddStudent`, `sp_StudentUpdateMyProfile` - Student management
+- `sp_AdminAddInstructor`, `sp_UpdateInstructor`, `sp_GetAllInstructors` - Instructor management
+- `sp_AddCourse`, `sp_UpdateCourse`, `sp_GetAllCourses`, `sp_GetCourseById` - Course management
+
+---
+
+## Collaborators
+
+**Eman Shehata**  
+📧 Email: emanshehata258@gmail.com  
+🔗 LinkedIn: https://www.linkedin.com/in/emanshehata  
+
+**Ash Rawda**  
+📧 Email: ashrawda@gmail.com  
+🔗 LinkedIn: https://www.linkedin.com/in/rawda-ashor-abdelhady-168250304  
+
+---
+
+## Notes
+
+- This project follows **DB First** architecture.
+- Stored Procedures are the main source of business rules.
+- JWT is used for authentication and role-based authorization.
+- Developed for **educational purposes (ITI)**.
+
 
 
