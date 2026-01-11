@@ -77,7 +77,7 @@ Key stored procedures to verify:
 📧 Email: emanshehata258@gmail.com  
 🔗 LinkedIn: https://www.linkedin.com/in/emanshehata  
 
-**Ash Rawda**  
+**Rawda Ashour**  
 📧 Email: ashrawda@gmail.com  
 🔗 LinkedIn: https://www.linkedin.com/in/rawda-ashor-abdelhady-168250304  
 
