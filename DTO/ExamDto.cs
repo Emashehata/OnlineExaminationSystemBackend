@@ -34,6 +34,7 @@ namespace OnlineExaminationSystem.DTOs
     public class ExamResponseDto
     {
         public int ExamId { get; set; }
+        public int CourseId { get; set; }
         public string Title { get; set; } = string.Empty;
         public int DurationMinutes { get; set; }
         public int TotalMarks { get; set; }
@@ -46,6 +47,7 @@ namespace OnlineExaminationSystem.DTOs
 
     public class ExamDetailsResponseDto
     {
+        public int CourseId { get; set; }
         public int ExamId { get; set; }
         public string Title { get; set; } = string.Empty;
         public int DurationMinutes { get; set; }

@@ -163,7 +163,7 @@ namespace OnlineExaminationSystem.Controllers
 
         // 8) Get Instructor Courses (Instructor Admin)
         [HttpGet("{id:int}/courses")]
-        [Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Admin,Instructor")]
         public async Task<IActionResult> GetInstructorCoursesById(int id)
         {
             using var con = Conn();
