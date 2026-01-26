@@ -209,6 +209,7 @@ namespace OnlineExaminationSystem.Controllers
 
                 var examDetails = new ExamDetailsResponseDto
                 {
+                    CourseId = exam.CourseId,
                     ExamId = exam.ExamId,
                     Title = exam.Title,
                     DurationMinutes = exam.DurationMinutes,
