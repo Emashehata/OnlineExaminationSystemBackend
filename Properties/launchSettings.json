@@ -19,16 +19,26 @@
         "ASPNETCORE_ENVIRONMENT": "Development"
       }
     },
-    "https": {
+    "MonsterASP": {
       "commandName": "Project",
       "dotnetRunMessages": true,
       "launchBrowser": true,
       "launchUrl": "swagger",
-      "applicationUrl": "https://localhost:7288",
+      "applicationUrl": "http://onlineexaminationsystem.runasp.net/",
       "environmentVariables": {
-        "ASPNETCORE_ENVIRONMENT": "Development"
+        "ASPNETCORE_ENVIRONMENT": "Production"
       }
-    },
+    }
+    //"https": {
+    //  "commandName": "Project",
+    //  "dotnetRunMessages": true,
+    //  "launchBrowser": true,
+    //  "launchUrl": "swagger",
+    //  "applicationUrl": "https://localhost:7288",
+    //  "environmentVariables": {
+    //    "ASPNETCORE_ENVIRONMENT": "Development"
+    //  }
+    //},
     "IIS Express": {
       "commandName": "IISExpress",
       "launchBrowser": true,

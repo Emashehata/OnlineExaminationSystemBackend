@@ -1,10 +1,10 @@
 ﻿using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
+using Microsoft.OpenApi.Models;
 using OnlineExaminationSystem.Services;
 using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
-builder.Services.AddScoped<IAttemptService, AttemptService>();
 
 // =======================
 // Services
@@ -13,11 +13,44 @@ builder.Services.AddScoped<IAttemptService, AttemptService>();
 // Controllers
 builder.Services.AddControllers();
 
-// Swagger
-builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
+// Custom Services
+builder.Services.AddScoped<IAttemptService, AttemptService>();
 
+// =======================
+// Swagger
+// =======================
+builder.Services.AddEndpointsApiExplorer();
+builder.Services.AddSwaggerGen(options =>
+{
+    options.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
+    {
+        Name = "Authorization",
+        Type = SecuritySchemeType.ApiKey,
+        Scheme = "Bearer",
+        BearerFormat = "JWT",
+        In = ParameterLocation.Header,
+        Description = "Enter your JWT token like: Bearer {your token}"
+    });
+
+    options.AddSecurityRequirement(new OpenApiSecurityRequirement
+    {
+        {
+            new OpenApiSecurityScheme
+            {
+                Reference = new OpenApiReference
+                {
+                    Type = ReferenceType.SecurityScheme,
+                    Id = "Bearer"
+                }
+            },
+            Array.Empty<string>()
+        }
+    });
+});
+
+// =======================
 // JWT Authentication
+// =======================
 var jwtSettings = builder.Configuration.GetSection("Jwt");
 var key = Encoding.UTF8.GetBytes(jwtSettings["Key"]!);
 
@@ -39,61 +72,44 @@ builder.Services.AddAuthentication(options =>
         IssuerSigningKey = new SymmetricSecurityKey(key)
     };
 });
-builder.Services.AddSwaggerGen(options =>
-{
-    options.AddSecurityDefinition("Bearer", new Microsoft.OpenApi.Models.OpenApiSecurityScheme
-    {
-        Name = "Authorization",
-        Type = Microsoft.OpenApi.Models.SecuritySchemeType.ApiKey,
-        Scheme = "Bearer",
-        BearerFormat = "JWT",
-        In = Microsoft.OpenApi.Models.ParameterLocation.Header,
-        Description = "Enter your JWT token like: Bearer {your token}"
-    });
 
-    options.AddSecurityRequirement(new Microsoft.OpenApi.Models.OpenApiSecurityRequirement
-    {
-        {
-            new Microsoft.OpenApi.Models.OpenApiSecurityScheme
-            {
-                Reference = new Microsoft.OpenApi.Models.OpenApiReference
-                {
-                    Type = Microsoft.OpenApi.Models.ReferenceType.SecurityScheme,
-                    Id = "Bearer"
-                }
-            },
-            new string[] {}
-        }
-    });
-});
+// =======================
+// CORS (LOCAL + VERCEL)
+// =======================
 builder.Services.AddCors(options =>
 {
-    options.AddPolicy("AllowAngularApp",
-        policy =>
-        {
-            policy.WithOrigins("http://localhost:4200") 
-                  .AllowAnyHeader()
-                  .AllowAnyMethod();
-        });
+    options.AddPolicy("AllowAngularApp", policy =>
+    {
+        policy
+            .WithOrigins(
+                "http://localhost:4200",
+                "https://online-examination-system-front-end-rust.vercel.app"
+            )
+            .AllowAnyHeader()
+            .AllowAnyMethod();
+    });
 });
 
 builder.Services.AddAuthorization();
 
+// =======================
+// Build App
+// =======================
 var app = builder.Build();
 
 // =======================
 // Middleware
 // =======================
 
-if (app.Environment.IsDevelopment())
-{
-    app.UseSwagger();
-    app.UseSwaggerUI();
-}
+// Swagger (can be left enabled on Monster)
+app.UseSwagger();
+app.UseSwaggerUI();
 
-// �� HTTPS ���� ���� ���� �� ��� ����� �����
 app.UseHttpsRedirection();
+
+// 🔴 CORS MUST be before Auth
 app.UseCors("AllowAngularApp");
+
 app.UseAuthentication();
 app.UseAuthorization();
 
