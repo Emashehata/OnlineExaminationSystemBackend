@@ -32,6 +32,25 @@ namespace OnlineExaminationSystem.Controllers
 
             return Ok(data);
         }
+
+        // ============================
+        // GET: api/Tracks/by-branch/{branchId}
+        // ============================
+        [HttpGet("by-branch/{branchId:int}")]
+        public async Task<IActionResult> GetTracksByBranch(int branchId)
+        {
+            using var con = new SqlConnection(
+                _config.GetConnectionString("DefaultConnection")
+            );
+
+            var tracks = await con.QueryAsync<TrackDto>(
+                "sp_GetTracksByBranch",
+                new { BranchId = branchId },
+                commandType: CommandType.StoredProcedure
+            );
+
+            return Ok(tracks);
+        }
     }
 }
 

@@ -81,14 +81,16 @@ builder.Services.AddCors(options =>
     options.AddPolicy("AllowAngularApp", policy =>
     {
         policy
-            .WithOrigins(
-                "http://localhost:4200",
-                "https://online-examination-system-front-end-rust.vercel.app"
+            .SetIsOriginAllowed(origin =>
+                origin.StartsWith("http://localhost") ||
+                origin.Contains(".vercel.app")
             )
             .AllowAnyHeader()
-            .AllowAnyMethod();
+            .AllowAnyMethod()
+            .AllowCredentials();
     });
 });
+
 
 builder.Services.AddAuthorization();
 
