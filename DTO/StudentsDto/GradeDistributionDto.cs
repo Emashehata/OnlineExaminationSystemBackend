@@ -1,0 +1,10 @@
+﻿namespace OnlineExaminationSystem.DTO.StudentsDto
+{
+    public class GradeDistributionDto
+    {
+        public int A { get; set; }
+        public int B { get; set; }
+        public int C { get; set; }
+        public int D { get; set; }
+    }
+}
